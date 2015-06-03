@@ -1,0 +1,34 @@
+<ion-view view-title="Contacts">
+  <ion-nav-buttons side="right">
+    <button class="button icon ion-search" ng-click="contacts.startSearch()"></button>
+  </ion-nav-buttons>
+
+  <form ng-if="contacts.searching">
+  <ion-header-bar class="bar-subheader item-input-inset" >
+    <form>
+      <label class="item-input-wrapper">
+        <i class="icon ion-ios-search placeholder-icon"></i>
+        <input type="search" placeholder="Search" auto-focus>
+      </label>
+      <button class="button button-clear" ng-click="contacts.cancelSearch()">
+        Cancel
+      </button>
+    </form>
+  </ion-header-bar>
+  </form>
+
+  <ion-content ng-class="{'has-subheader': contacts.searching}">
+    <ion-list>
+      <ion-item ng-repeat="contact in contacts.contacts"
+        class="item-remove-animate item-icon-right contact"
+        type="item-text-wrap"
+        ng-class="{ online: contact.online, offline: !contact.online }"
+        href="#/tab/contacts/{{contact.id}}">
+        <!--<img ng-src="{{contact.face}}">-->
+        <h2>{{contact.name}}</h2>
+        <p>{{contact.company}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
