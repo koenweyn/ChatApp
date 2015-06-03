@@ -1,4 +1,6 @@
-angular.module('starter.controllers', [])
+angular.module('starter.controllers', [
+  'webStorageModule'
+])
 
   .controller('DashCtrl', function($scope, $rootScope, $ionicUser, $ionicPush) {
     // Handles incoming device tokens
@@ -87,4 +89,19 @@ angular.module('starter.controllers', [])
   $scope.settings = {
     enableFriends: true
   };
+})
+
+.controller('LoginCtrl', function($scope, $state, webStorage) {
+  $scope.user = {
+    name: webStorage.local.get('user.name')
+  };
+  
+  $scope.nameFocus = !$scope.user.name;
+  $scope.passwordFocus = !!$scope.user.name;
+  
+  
+  $scope.login = function() {
+    webStorage.local.add('user.name', $scope.user.name);
+    $state.go('tab.contacts');
+  }
 });

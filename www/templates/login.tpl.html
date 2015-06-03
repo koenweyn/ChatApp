@@ -1,0 +1,23 @@
+      <ion-view view-title="Sign-In">
+        <ion-content>
+          <div class="list list-inset">
+            <label class="item item-input">
+<!--              <span class="input-label">Username</span>-->
+              <input type="text" ng-model="user.name" auto-focus="{{nameFocus}}" placeholder="Username">
+            </label>
+            <label class="item item-input">
+<!--              <span class="input-label">Password</span>-->
+              <input type="password" ng-model="user.password" auto-focus="{{passwordFocus}}" placeholder="Password">
+            </label>
+          </div>
+          <div class="padding">
+            <button class="button button-block button-positive" ng-click="login()">
+              Sign-In
+            </button>
+            <p class="text-center">
+              <a href="#/forgot-password">Forgot password</a>
+            </p>
+          </div>
+        </ion-content>
+      </ion-view>
+
