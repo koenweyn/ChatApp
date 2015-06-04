@@ -36,7 +36,7 @@ angular.module('starter.services', [])
       return chats;
     },
     remove: function(chat) {
-      chats.splice(chats.indexOf(contact), 1);
+      chats.splice(chats.indexOf(chat), 1);
     },
     get: function(chatId) {
       for (var i = 0; i < chats.length; i++) {
@@ -53,12 +53,12 @@ angular.module('starter.services', [])
 
 function contactsService() {
   var contacts = [
-    { id: 1, name: 'Walter Rotela', company: '(TONKEY S.A.) WE TECHNOLOGY', online: true },
-    { id: 2, name: 'Jason Minchow', company: 'ACI WORLDWIDE LENOVO', online: true },
-    { id: 3, name: 'Alina Mahacean', company: 'ACSL', online: true },
-    { id: 4, name: 'Bogdan Danut', company: 'ACSL', online: true },
-    { id: 5, name: 'Ciprian Radoslav', company: 'ACSL', online: true },
-    { id: 6, name: 'Dan Tap', company: 'ACSL', online: false }
+    { id: 1, name: 'Adam Bradleyson', company: 'THE FUNNY PAPER CO', online: true },
+    { id: 2, name: 'Katy Perry', company: 'FLOWERS.COM', online: true },
+    { id: 3, name: 'Moody Mahmoody', company: 'GOOGLE', online: true },
+    { id: 4, name: 'John Whitaker', company: 'BANK CARD COMPANY (BCC)', online: true },
+    { id: 5, name: 'Marlene Johnson', company: 'GOOGLE', online: true },
+    { id: 6, name: 'Dan Ping', company: 'SOFTCORP', online: false }
   ];
 
   return {
