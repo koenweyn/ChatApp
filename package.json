@@ -1,16 +1,21 @@
 {
-  "name": "chatapp",
-  "version": "1.0.0",
-  "description": "ChatApp: An Ionic project",
+  "name": "ChatApp",
+  "version": "0.0.1",
+  "description": "An ionic mobile chat client",
+  "author": "Koen Weyn <koenweyn@blibo.be>",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/koenweyn/ChatApp.git"
+  },
   "dependencies": {
+  },
+  "devDependencies": {
+    "bower": "^1.3.3",
     "gulp": "^3.5.6",
     "gulp-sass": "^1.3.3",
     "gulp-concat": "^2.2.0",
     "gulp-minify-css": "^0.3.0",
-    "gulp-rename": "^1.2.0"
-  },
-  "devDependencies": {
-    "bower": "^1.3.3",
+    "gulp-rename": "^1.2.0",
     "gulp-util": "^2.2.14",
     "shelljs": "^0.3.0"
   },
@@ -25,5 +30,9 @@
   ],
   "cordovaPlatforms": [
     "ios"
-  ]
+  ],
+  "scripts": {
+    "build": "ionic build",
+    "serve": "ionic serve"
+  }
 }
