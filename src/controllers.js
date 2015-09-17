@@ -68,15 +68,11 @@ angular.module('starter.controllers', [
     function cancelSearch() {
       vm.searching = false;
     }
-
-    function search() {
-
-    }
   })
 
 .controller('ChatsCtrl', function($scope, Chats) {
   $scope.chats = Chats.all();
-  $scope.remove = function(chat) {
+  $scope.remove = function(contact) {
     Chats.remove(contact);
   }
 })

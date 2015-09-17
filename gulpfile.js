@@ -1,17 +1,22 @@
-var gulp = require('gulp');
-var gutil = require('gulp-util');
-var bower = require('bower');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
-var sh = require('shelljs');
+var bower       = require('bower');
+var concat      = require('gulp-concat');
+var del         = require('del');
+var gulp        = require('gulp');
+var gutil       = require('gulp-util');
+var minifyCss   = require('gulp-minify-css');
+var rename      = require('gulp-rename');
+var sass        = require('gulp-sass');
+var sh          = require('shelljs');
+var sourcemaps  = require('gulp-sourcemaps');
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['./scss/**/*.scss'],
+  scripts: ['src/**/*.js'],
+  templates: ['src/**/*.html']
 };
 
-gulp.task('default', ['sass']);
+gulp.task('default', ['build']);
+gulp.task('build', ['sass', 'scripts', 'templates']);
 
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
@@ -27,8 +32,23 @@ gulp.task('sass', function(done) {
     .on('end', done);
 });
 
-gulp.task('watch', function() {
+gulp.task('scripts', function() {
+  gulp.src(paths.scripts)
+    .pipe(sourcemaps.init())
+    .pipe(concat('ChatApp.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('www/js'));
+});
+
+gulp.task('templates', function() {
+  gulp.src(paths.templates)
+    .pipe(gulp.dest('www/templates'));
+});
+
+gulp.task('watch', ['build'], function() {
   gulp.watch(paths.sass, ['sass']);
+  gulp.watch(paths.scripts, ['scripts']);
+  gulp.watch(paths.templates, ['templates']);
 });
 
 gulp.task('install', ['git-check'], function() {
@@ -50,3 +70,12 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+gulp.task('clean', function() {
+  del([
+    'www/js/**',
+    'www/templates/**'
+  ], { force: true });
+
+});
+
