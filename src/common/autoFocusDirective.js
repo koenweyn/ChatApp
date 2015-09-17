@@ -1,6 +1,8 @@
-angular.module('starter.directives', [])
+(function () {
+  'use strict';
 
-  .directive('autoFocus', autoFocusDirective);
+  angular.module('common')
+    .directive('autoFocus', autoFocusDirective);
 
   function autoFocusDirective($timeout) {
     return {
@@ -10,12 +12,12 @@ angular.module('starter.directives', [])
           $attributes.$observe('autoFocus', function(af) {
             if ($scope.$eval(af)) {
               setFocus();
-            } 
-          });        
+            }
+          });
         } else {
           setFocus();
         }
-        
+
         function setFocus() {
           $timeout(function() {
             console.log('set focus');
@@ -26,3 +28,6 @@ angular.module('starter.directives', [])
       }
     };
   }
+
+}());
+

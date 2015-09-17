@@ -7,6 +7,7 @@ var minifyCss   = require('gulp-minify-css');
 var rename      = require('gulp-rename');
 var sass        = require('gulp-sass');
 var sh          = require('shelljs');
+var sort        = require('gulp-sort');
 var sourcemaps  = require('gulp-sourcemaps');
 
 var paths = {
@@ -34,6 +35,7 @@ gulp.task('sass', function(done) {
 
 gulp.task('scripts', function() {
   gulp.src(paths.scripts)
+    .pipe(sort(sourceSorter))
     .pipe(sourcemaps.init())
     .pipe(concat('ChatApp.js'))
     .pipe(sourcemaps.write('.'))
@@ -78,4 +80,31 @@ gulp.task('clean', function() {
   ], { force: true });
 
 });
+
+function sourceSorter(file){
+  if (!file || !file.path) {
+    return undefined;
+  }
+
+  //count the number of path separators
+  var cnt = (file.path.match(/\/|\\/g) || []).length;
+
+  //prepend number of '_' to path -> files with less slashes take precendence
+  var path = file.path;
+  while(cnt--) {
+    path = '_' + path;
+  }
+
+  //lowercase
+  path = path.toLowerCase();
+
+  //remove drive letter (windows)
+  path = path.replace(/\w:/, '');
+
+  //remove .js
+  path = path.replace(/\.js/, '');
+
+  return path;
+}
+
 

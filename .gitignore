@@ -4,10 +4,9 @@
 *.iml
 .idea/
 .settings/
-src/config.js
+src/ionAppConfig.js
 ionic.project
 push.rb
-npm-debug.log
 
 node_modules/
 platforms/

@@ -1,8 +1,10 @@
-angular.module('starter.controllers', [
-  'webStorageModule'
-])
+(function () {
+  'use strict';
 
-  .controller('DashCtrl', function($scope, $rootScope, $ionicUser, $ionicPush) {
+  angular.module('chat-app.tabs.dash')
+    .controller('DashCtrl', DashCtrl);
+
+  function DashCtrl($scope, $rootScope, $ionicUser, $ionicPush) {
     // Handles incoming device tokens
     $rootScope.$on('$cordovaPush:tokenReceived', function(event, data) {
       alert("Successfully registered token " + data.token);
@@ -45,59 +47,11 @@ angular.module('starter.controllers', [
         canRunActionsOnWake: true, //Can run actions outside the app,
         onNotification: function(notification) {
           // Handle new push notifications here
-           console.log(notification);
+          console.log(notification);
           return true;
         }
       });
     };
-  })
-
-  /* @ngInject */
-  .controller('ContactsCtrl', function(contactsService) {
-    var vm = this;
-
-    vm.startSearch = startSearch;
-    vm.cancelSearch = cancelSearch;
-
-    vm.contacts = contactsService.all();
-
-    function startSearch() {
-      vm.searching = true;
-    }
-
-    function cancelSearch() {
-      vm.searching = false;
-    }
-  })
-
-.controller('ChatsCtrl', function($scope, Chats) {
-  $scope.chats = Chats.all();
-  $scope.remove = function(contact) {
-    Chats.remove(contact);
   }
-})
 
-.controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
-  $scope.contact = Chats.get($stateParams.chatId);
-})
-
-.controller('AccountCtrl', function($scope) {
-  $scope.settings = {
-    enableFriends: true
-  };
-})
-
-.controller('LoginCtrl', function($scope, $state, webStorage) {
-  $scope.user = {
-    name: webStorage.local.get('user.name')
-  };
-  
-  $scope.nameFocus = !$scope.user.name;
-  $scope.passwordFocus = !!$scope.user.name;
-  
-  
-  $scope.login = function() {
-    webStorage.local.add('user.name', $scope.user.name);
-    $state.go('tab.contacts');
-  }
-});
+}());
