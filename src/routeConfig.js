@@ -18,7 +18,7 @@
       .state('login', {
         url: '/login',
         templateUrl: 'templates/app/login/login.tpl.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl as login'
       })
 
       // setup an abstract state for the tabs directive

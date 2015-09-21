@@ -7683,3 +7683,15 @@ a.button {
 .contact {
   border-left-width: 10px;
   border-left-color: red; }
+
+.error-message {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #ef473a;
+  color: #ef473a;
+  background: #fce1df; }
+
+.list-inset .error-message {
+  margin-bottom: 20px; }

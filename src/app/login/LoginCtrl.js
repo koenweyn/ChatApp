@@ -5,18 +5,32 @@
     .controller('LoginCtrl', LoginCtrl);
 
   /* @ngInject */
-  function LoginCtrl($scope, $state, webStorage) {
-    $scope.user = {
-      name: webStorage.local.get('user.name')
+  function LoginCtrl($state, webStorage, $ionicLoading, authService) {
+    var vm = this;
+
+    vm.user = {
+      email: webStorage.local.get('user.email')
     };
 
-    $scope.nameFocus = !$scope.user.name;
-    $scope.passwordFocus = !!$scope.user.name;
+    vm.emailFocus = !vm.user.email;
+    vm.passwordFocus = !!vm.user.email;
 
 
-    $scope.login = function() {
-      webStorage.local.add('user.name', $scope.user.name);
-      $state.go('tabs.contacts');
+    vm.login = function() {
+      webStorage.local.add('user.email', vm.user.email);
+      $ionicLoading.show({
+        template: 'Authenticating ...'
+      });
+      authService.authenticate(vm.user.email, vm.user.password)
+        .then(function() {
+          $state.go('tabs.contacts');
+        })
+        .catch(function(errorMessage) {
+          vm.error = errorMessage;
+        })
+        .finally(function() {
+          $ionicLoading.hide();
+        });
     }
   }
 }());

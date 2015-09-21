@@ -1,1 +1,3 @@
-angular.module('common', []);
+angular.module('common', [
+  'firebase'
+]);

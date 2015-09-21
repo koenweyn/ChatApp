@@ -1,24 +1,24 @@
       <ion-view view-title="Sign-In">
         <ion-content>
-          <div class="list list-inset">
-            <label class="item item-input">
-<!--              <span class="input-label">Username</span>-->
-              <input type="text" ng-model="user.name" auto-focus="{{nameFocus}}" placeholder="Username">
-            </label>
-            <label class="item item-input">
-<!--              <span class="input-label">Password</span>-->
-              <input type="password" ng-model="user.password" auto-focus="{{passwordFocus}}" placeholder="Password">
-            </label>
-          </div>
-          <div class="padding">
-            <button class="button button-block button-positive" ng-click="login()">
-              Sign-In
-            </button>
-            <p class="text-center">
-              <!--suppress HtmlUnknownAnchorTarget -->
-              <a href="#/forgot-password">Forgot password</a>
-            </p>
-          </div>
+          <form name="loginform" ng-submit="loginform.$valid && login.login()">
+            <div class="list list-inset">
+              <div class="error-message" ng-if="login.error"><i class="icon ion-alert-circled"></i> <span>{{login.error}}</span></div>
+
+              <label class="item item-input">
+                <input type="text" ng-model="login.user.email" auto-focus="{{login.emailFocus}}" required placeholder="E-mail">
+              </label>
+              <label class="item item-input">
+                <input type="password" ng-model="login.user.password" auto-focus="{{login.passwordFocus}}" required placeholder="Password">
+              </label>
+            </div>
+            <div class="padding">
+              <input type="submit" class="button button-block button-positive" ng-disabled="loginform.$invalid" value="Sign-In">
+              <p class="text-center">
+                <!--suppress HtmlUnknownAnchorTarget -->
+                <a href="#/forgot-password">Forgot password</a>
+              </p>
+            </div>
+          </form>
         </ion-content>
       </ion-view>
 

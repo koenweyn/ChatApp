@@ -19,7 +19,7 @@ $dark:                            #444 !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "../www/lib/ionic/scss/ionic";
 
 $green:   $balanced;
 $red:     $assertive;
@@ -40,3 +40,16 @@ $white:   #fff;
   border-left-color: red;
 }
 
+.error-message {
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid $assertive;
+  color: $assertive;
+  background: lighten($assertive, 35%);
+}
+
+.list-inset .error-message {
+  margin-bottom: 20px;
+}
