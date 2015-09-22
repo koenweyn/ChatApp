@@ -4,15 +4,16 @@
 (function () {
   'use strict';
 
+  const LOGIN_STATE = 'login';
+  const DEFAULT_STATE = 'tabs.chats';
+
+
   angular.module('chat-app')
-    .config(routeConfig);
+    .config(routeConfig)
+    .run(stateChangePreventer);
 
   function routeConfig($stateProvider, $urlRouterProvider) {
 
-    // Ionic uses AngularUI Router which uses the concept of states
-    // Learn more here: https://github.com/angular-ui/ui-router
-    // Set up the various states which the app can be in.
-    // Each state's controller can be found in controllers.js
     $stateProvider
 
       .state('login', {
@@ -81,8 +82,32 @@
       });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('login');
+    $urlRouterProvider.otherwise('tabs.chats');
+  }
 
+  function stateChangePreventer($rootScope, $state, authService) {
+    var stateAfterLogin = {};
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
+      //jump to login if not authenticated
+      if (toState.name !== LOGIN_STATE && !authService.isAuthenticated()) {
+        stateAfterLogin = {
+          state: toState.name,
+          params: toParams
+        };
+        event.preventDefault();
+
+        $state.go(LOGIN_STATE);
+      }
+    });
+
+    //now jump to the state that we wanted (or the default)
+    $rootScope.$on('$authenticated', function() {
+      $state.go(
+        stateAfterLogin.state || DEFAULT_STATE,
+        stateAfterLogin.params
+      )
+    })
   }
 
 }());

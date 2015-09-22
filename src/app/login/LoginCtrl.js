@@ -5,7 +5,7 @@
     .controller('LoginCtrl', LoginCtrl);
 
   /* @ngInject */
-  function LoginCtrl($state, webStorage, $ionicLoading, authService) {
+  function LoginCtrl(webStorage, $ionicLoading, authService, $ionicViewSwitcher) {
     var vm = this;
 
     vm.user = {
@@ -17,13 +17,14 @@
 
 
     vm.login = function() {
+      $ionicViewSwitcher.nextDirection('enter');
       webStorage.local.add('user.email', vm.user.email);
       $ionicLoading.show({
         template: 'Authenticating ...'
       });
       authService.authenticate(vm.user.email, vm.user.password)
         .then(function() {
-          $state.go('tabs.contacts');
+          // the user will automatically be forwarded to the correct view
         })
         .catch(function(errorMessage) {
           vm.error = errorMessage;
