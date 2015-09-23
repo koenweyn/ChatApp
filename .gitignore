@@ -4,7 +4,7 @@
 *.iml
 .idea/
 .settings/
-src/ionAppConfig.js
+src/appConstants.js
 ionic.project
 push.rb
 
