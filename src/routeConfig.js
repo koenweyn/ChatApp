@@ -82,7 +82,7 @@
       });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('tabs.chats');
+    $urlRouterProvider.otherwise('/tabs/chats');
   }
 
   function stateChangePreventer($rootScope, $state, authService) {
