@@ -20,7 +20,7 @@ gulp.task('default', ['build']);
 gulp.task('build', ['sass', 'scripts', 'templates']);
 
 gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
+  gulp.src('./scss/chat-app.scss')
     .pipe(sass({
       errLogToConsole: true
     }))
