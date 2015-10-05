@@ -1,24 +1,35 @@
-      <ion-view view-title="Sign-In">
-        <ion-content>
-          <form name="loginform" ng-submit="loginform.$valid && login.login()">
-            <div class="list list-inset">
-              <div class="error-message" ng-if="login.error"><i class="icon ion-alert-circled"></i> <span>{{login.error}}</span></div>
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Sign In</h1>
+  </ion-header-bar>
+  <ion-content>
+    <form name="loginform" ng-submit="loginform.$valid && login.login()" novalidate>
+      <div class="list list-inset">
+        <div class="error-message" ng-if="login.error"><i class="icon ion-alert-circled"></i> <span>{{login.error}}</span></div>
 
-              <label class="item item-input">
-                <input type="text" ng-model="login.user.email" auto-focus="{{login.emailFocus}}" required placeholder="E-mail">
-              </label>
-              <label class="item item-input">
-                <input type="password" ng-model="login.user.password" auto-focus="{{login.passwordFocus}}" required placeholder="Password">
-              </label>
-            </div>
-            <div class="padding">
-              <input type="submit" class="button button-block button-positive" ng-disabled="loginform.$invalid" value="Sign-In">
-              <p class="text-center">
-                <!--suppress HtmlUnknownAnchorTarget -->
-                <a href="#/forgot-password">Forgot password</a>
-              </p>
-            </div>
-          </form>
-        </ion-content>
-      </ion-view>
+        <label class="item item-input">
+          <input type="text" ng-model="login.user.email" auto-focus="{{login.emailFocus}}" required placeholder="E-mail">
+        </label>
+        <label class="item item-input">
+          <input type="password" ng-model="login.user.password" auto-focus="{{login.passwordFocus}}" required placeholder="Password">
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive busy-button"
+          ng-disabled="loginform.$invalid || login.authenticating"
+          ng-click="login.login()">
+
+          <ion-spinner ng-if="login.authenticating"></ion-spinner>
+          <span ng-show="!login.authenticating">Sign-In</span>
+        </button>
+        <!-- Add an input[type=submit] to make sure ng-submit works -->
+        <input type="submit" class="hide">
+        <p class="text-center">
+          <!--suppress HtmlUnknownAnchorTarget -->
+          <a href="#/forgot-password">Forgot password</a>
+        </p>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>
 

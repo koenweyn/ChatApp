@@ -4,28 +4,32 @@
 (function () {
   'use strict';
 
-  const LOGIN_STATE = 'login';
-  const DEFAULT_STATE = 'tabs.chats';
-
-
   angular.module('chat-app')
     .config(routeConfig)
-    .run(stateChangePreventer);
+    .run(stateChangeLog);
 
   function routeConfig($stateProvider, $urlRouterProvider) {
 
     $stateProvider
 
-      .state('login', {
-        url: '/login',
-        templateUrl: 'templates/app/login/login.tpl.html',
-        controller: 'LoginCtrl as login'
-      })
-
       // setup an abstract state for the tabs directive
       .state('tabs', {
         url: "/tabs",
         abstract: true,
+        resolve: {
+          // only proceed when the user is authenticated
+          /* @ngInject */
+          authenticated: function($rootScope, $controller, $timeout, $q, authService) {
+            if (!authService.isAuthenticated()) {
+              // show the login dialog
+              $controller('LoginCtrl', {
+                $scope: $rootScope.$new()
+              });
+
+              return authService.whenAuthenticated();
+            }
+          }
+        },
         templateUrl: "templates/app/tabs/tabs.html"
       })
 
@@ -85,29 +89,12 @@
     $urlRouterProvider.otherwise('/tabs/chats');
   }
 
-  function stateChangePreventer($rootScope, $state, authService) {
-    var stateAfterLogin = {};
-
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams) {
-      //jump to login if not authenticated
-      if (toState.name !== LOGIN_STATE && !authService.isAuthenticated()) {
-        stateAfterLogin = {
-          state: toState.name,
-          params: toParams
-        };
-        event.preventDefault();
-
-        $state.go(LOGIN_STATE);
-      }
+  /* @ngInject */
+  function stateChangeLog($rootScope) {
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState) {
+      //noinspection JSUnresolvedVariable
+      console.debug('$stateChangeStart: ' + (fromState && fromState.name) + ' -> ' + (toState && toState.name));
     });
-
-    //now jump to the state that we wanted (or the default)
-    $rootScope.$on('$authenticated', function() {
-      $state.go(
-        stateAfterLogin.state || DEFAULT_STATE,
-        stateAfterLogin.params
-      )
-    })
   }
 
 }());

@@ -1,6 +1,5 @@
 # TODO
 
 ## Authentication
-- Login screen via modal popup (via abstract parent state controller)
 - Register screen
-- authService.whenAuthenticated (returning promise)
+- Make a directive for a button that shows a spinner when busy

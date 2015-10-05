@@ -34,6 +34,8 @@ $white:   #fff;
   }
 
 }
+
+//noinspection CssOptimizeSimilarProperties
 .contact {
   border-left-width: 10px;
 
@@ -53,3 +55,16 @@ $white:   #fff;
 .list-inset .error-message {
   margin-bottom: 20px;
 }
+
+.button-positive {
+  .spinner > svg {
+    stroke: #fff;
+    fill: #fff;
+  }
+}
+
+.busy-button {
+  line-height: inherit;
+}
+
+
