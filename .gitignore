@@ -2,6 +2,7 @@
 # http://git-scm.com/docs/gitignore
 
 *.iml
+npm-debug.log
 .idea/
 .settings/
 src/appConstants.js
